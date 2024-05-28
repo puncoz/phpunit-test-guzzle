@@ -11,24 +11,17 @@ namespace App;
 class HttpService
 {
     public function __construct(
-        protected HttpSdkClientInterface $client
+        protected HttpClientInterface $client
     ) {
     }
 
-    public function getNews()
+    public function getPosts()
     {
-        $this->client->setReqAuth(false);
-
-        return $this->client->get('/posts');
+        return $this->client->request("GET", "/posts");
     }
 
-    public function postNews()
+    public function getPostDetail(int $postId)
     {
-        $client = $this->client->initiate();
-        $this->client->setReqAuth(true);
-
-        $response = $client->post('/posts', ['json' => ['title' => 'test', 'content' => 'test']]);
-
-        return $response->getResponse();
+        return $this->client->request("GET", "/posts/{$postId}");
     }
 }

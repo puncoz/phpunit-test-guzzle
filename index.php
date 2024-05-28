@@ -6,8 +6,16 @@
  * Time: 10:46 PM
  */
 
-require __DIR__.'./vendor/autoload.php';
+use App\HttpSdkFactory;
 
-$service = new App\HttpSdk();
-dd($service->getNews());
-//var_dump($service->postNews());
+require __DIR__.'/vendor/autoload.php';
+
+$service    = new App\HttpSdk();
+$posts      = $service->getPosts();
+$postDetail = $service->getPostDetail(1);
+dump(count($posts), $postDetail);
+
+$serviceWithFactory    = HttpSdkFactory::create();
+$postsWithFactory      = $serviceWithFactory->getPosts();
+$postDetailWithFactory = $serviceWithFactory->getPostDetail(1);
+dump(count($postsWithFactory), $postDetailWithFactory);
